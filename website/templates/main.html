@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UpShop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/content.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/delete.js') }}"></script>
+</head>
+<body>
+	<div class="app">
+		<div class="menu-toggle">
+			<div class="hamburger">
+				<span></span>
+			</div>
+		</div>
+		<main class="content">
+			<div class="main_title">
+				<h1>Nástěnka</h1>
+				<button class="next_page" type="button" onclick=window.location.href='{{ url_for("api.home") }}';>Statistiky</button>
+			</div>
+			<div class="end_buttons">
+				<button class="new_input" type="button" onclick=window.location.href='{{ url_for("views.add") }}';>+ Přidej note</button>
+			</div>
+            <form method="post">
+                <div class="main_content">
+                    {% for note in notes %}
+                        <div class="article" style="background-color: {{note.color}};">
+                            <div class="settings_article" style="background-color: {{note.color}};" id="note_settings_'{{note.id}}">
+                                <button class="deletebut" type="submit" style="background-color: #00DD43;">Save</button>
+								<button class="deletebut" onclick="deleteNote('{{note.id}}')" style="margin-right: 220px;">Delete</button>
+                                <span></span>
+								<select class="input_colour" name="note_color_{{note.id}}" style="background-color:{{note.color}};">
+                                    {% if note.color == "white" %}
+                                        <option value="white" style="background-color:white;" selected>Bílá</option>
+                                    {% else %}
+                                        <option value="white" style="background-color:white;">Bílá</option>
+                                    {% endif %}
+									{% if note.color == "#00DD43" %}
+									    <option value="#00DD43" style="background-color:#00DD43;" selected>Zelená</option> 
+                                    {% else %}
+									    <option value="#00DD43" style="background-color:#00DD43;">Zelená</option>
+                                    {% endif %}
+									{% if note.color == "#33B2FF" %}
+										<option value="#33B2FF" style="background-color:#33B2FF;" selected>Modrá</option>
+                                    {% else %}
+										<option value="#33B2FF" style="background-color:#33B2FF;">Modrá</option>
+                                    {% endif %}
+									{% if note.color == "red" %}
+										<option value="red" style="background-color:red;" selected>Červená</option>
+                                    {% else %}
+										<option value="red" style="background-color:red;">Červená</option>
+                                    {% endif %}
+									{% if note.color == "yellow" %}
+										<option value="yellow" style="background-color:yellow;" selected>Žlutá</option>
+                                    {% else %}
+										<option value="yellow" style="background-color:yellow;">Žlutá</option>
+                                    {% endif %}
+									{% if note.color == "orange" %}
+										<option value="orange" style="background-color:orange;" selected>Oranžová</option>
+                                    {% else %}
+										<option value="orange" style="background-color:orange;">Oranžová</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <textarea class="input_note" style="background-color: {{note.color}};" type="text" name="note_data_{{note.id}}" id="note_data_'{{note.id}}'" maxlength="120" placeholder="Zadej poznámku">{{note.data}}</textarea>
+                            <input class="input_author" style="background-color: {{note.color}};" type="text" name="note_author_{{note.id}}" id="1" maxlength="35" placeholder="Zadej autora" value="{{note.user_name}}">
+                            <div class="date" style="background-color: {{note.color}};">
+                                <span>Datum vytvoření:</span>
+                                <span>{{note.date.day}}. {{note.date.month}}. {{note.date.year}} {{note.date.hour}}:{{note.date.minute}}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </form>
+		</main>
+	</div>
+	<script>
+
+		const menu_toggle = document.querySelector('.menu-toggle');
+		const sidebar = document.querySelector('.sidebar');
+
+
+		menu_toggle.addEventListener('click', () => {
+			menu_toggle.classList.toggle('is-active');
+			sidebar.classList.toggle('is-active');
+		});
+	</script>
+</body>
+</html>

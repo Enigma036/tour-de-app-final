@@ -1,0 +1,15 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+	line-height: normal;
+	
+}
+
+
+.app {
+	display: flex;
+	min-height: 100vh;
+	overflow-y: hidden;
+}

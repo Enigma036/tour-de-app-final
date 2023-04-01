@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UpShop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/content.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/delete.js') }}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        // periodické dotazování na server pomocí AJAX
+        setInterval(function() {
+          $.ajax({
+            url: '{{ url_for("api.sys") }}',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+              	// aktualizace prvku na stránce pomocí JavaScriptu
+              	var sys = document.getElementById('sysinfo');
+				var sys1 = document.getElementById('sysinfo1');
+				var sys2 = document.getElementById('sysinfo_up');
+
+			  	const date = new Date(data['boot_time']);
+			  	const standardDate = date.toLocaleString();
+
+				// aktuální datum a čas
+				var aktualniCas = new Date();
+
+				// rozdíl v milisekundách
+				var rozdil = aktualniCas.getTime() - date.getTime();
+
+				// převod milisekund na sekundy, minuty, hodiny a dny
+				var sec = Math.floor(rozdil / 1000);
+				var min = Math.floor(sec / 60);
+				var hod = Math.floor(min / 60) + 1;
+				var dny = Math.floor(hod / 24);
+
+				// výpočet zbývajících hodin, minut a sekund
+				hod %= 24;
+				min %= 60;
+				sec %= 60;
+
+				// výpis zbývajícího času
+				sys2.innerHTML = dny + " dnů " + hod + " hodin " + min + " minut " + sec + " sekund";
+			  	sys.innerHTML = standardDate;
+
+			  	var platform = document.getElementById('platform');
+              	platform.innerHTML = data['platform'];
+            }
+          });
+        }, 5000);
+      });
+
+	  $(document).ready(function() {
+        // periodické dotazování na server pomocí AJAX
+        setInterval(function() {
+          $.ajax({
+            url: '{{ url_for("api.commit") }}',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+
+			  var count = Object.keys(data).length;
+              // aktualizace prvku na stránce pomocí JavaScriptu
+              var sys = document.getElementById('commitcount');
+              sys.innerHTML = count;
+
+			  
+			  var last = data[data.length - 1];
+			  var lastcommit = document.getElementById('lastcommit');
+
+			  const date = new Date(last["date"]);
+			  const standardDate = date.toLocaleString();
+            
+			  lastcommit.innerHTML = standardDate;
+
+			  var lastcommit = document.getElementById('desclastcommit');
+			  lastcommit.innerHTML = last["description"];
+
+            }
+          });
+        }, 2500);
+      });
+
+    </script>
+  </head>
+</head>
+<body>
+	<div class="app">
+		<div class="menu-toggle">
+			<div class="hamburger">
+				<span></span>
+			</div>
+		</div>
+		<main class="content">
+			<div class="main_title">
+				<button class="next_page" onclick=window.location.href='{{ url_for("views.home") }}'; style="margin-right:0.5em; border-radius: 30px 0px;">Nástěnka</button>
+				<h1 style="border-radius: 0px 30px;">Statistiky</h1>
+			</div>
+            <div class="main_content">
+				<div>
+					<span class="apiname">Boot-time serveru: </span>
+					<span class="apiitem" id="sysinfo">načítám</span>
+					<br>
+					<span class="apiname">Up-time serveru: </span>
+					<span class="apiitem" id="sysinfo_up">načítám</span>
+					<br>
+					<span class="apiname">Verze produkčního serveru: </span>
+					<span class="apiitem" id="platform">načítám</span>
+					<br>
+					<span class="apiname">Celkový počet commitů: </span>
+					<span class="apiitem" id="commitcount">načítám</span>
+					<br>
+					<span class="apiname">Poslední commit: </span>
+					<span class="apiitem" id="lastcommit">načítám</span>
+					<br>
+					<span class="apiname">Popisek posledního commitu: </span>
+					<span class="apiitem" id="desclastcommit">načítám</span>
+					<br>
+				</div>
+				<div id="data-element">
+
+				</div>
+            </div>
+		</main>
+	</div>
+	<script>
+		const menu_toggle = document.querySelector('.menu-toggle');
+		const sidebar = document.querySelector('.sidebar');
+
+
+		menu_toggle.addEventListener('click', () => {
+			menu_toggle.classList.toggle('is-active');
+			sidebar.classList.toggle('is-active');
+		});
+	</script>
+</body>
+</html>

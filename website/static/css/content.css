@@ -1,0 +1,169 @@
+.content{
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.main_title{
+    margin: 1em;
+    text-align: center;
+}
+
+.main_title h1{
+    display: inline-block;
+    font-size: 3.5em;
+    padding: 0.3em;
+    background-color: #F8B741;
+    border-radius: 30px 0px;
+    color: black;
+}
+
+.main_content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.main_content .article{
+    margin: 1.5em;
+    margin-top: 2em;
+    text-align: center;
+    width: 27em;
+    height: 16em;
+    background-color: orange;
+    border: black;
+    border-style: solid;
+
+}
+
+.main_content .article .about_article{
+  color: black;
+  text-align: left;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 1.3em;
+
+}
+
+.main_content .article p{
+  text-align: justify;
+  color: rgb(54, 54, 54);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+          line-clamp: 5; 
+  -webkit-box-orient: vertical;
+}
+.deletebut {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: red;
+  color: rgb(94, 3, 3);
+  border: #000;
+  border-style: solid;
+  font-size: 12px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  
+  
+}
+.end_buttons{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.end_buttons .new_input{
+  margin: 0.5em;
+  font-size: 2em;
+  border-radius: 15px;
+  padding: 0.3em 1em;
+  border: 0;
+  background-color: #F8B741; 
+  color: black;
+}
+
+.end_buttons .new_input:hover{
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.input_note{
+  font-size: 1.5em;
+  width: 100%;
+  height: 65%;
+  border: none;
+  resize: none;
+  padding: 0.25em;
+}
+
+.input_note:focus {
+  outline: none;
+}
+
+.input_author{
+  font-size: 1em;
+  width: 100%;
+  height: 10%;
+  font-style: italic;
+  border: none;
+  resize: none;
+  padding-left: 1em;
+  
+}
+
+.settings_article{
+  height: 15%;
+  width: 100%;
+}
+
+.input_colour{
+  justify-self: right;
+  font-style: italic;
+  border: none;
+  resize: none;
+  border-radius: 10px;
+  border-style: solid;
+  height: 2em;
+}
+
+.date{
+  font-style: italic;
+  font-size: 0.75em;
+}
+
+.apisys{
+  font-weight: bold;
+  font-size: 3em;
+}
+
+.apiitem{
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.apiname{
+  font-size: 1.5em;
+}
+
+.next_page{
+  display: inline-block;
+  font-size: 2.5em;
+  padding: 0.3em;
+  background-color: #F8B741;
+  border-radius: 0px 30px;
+  color: black;
+  margin-left: 0.5em;
+}
+.next_page:hover{
+  cursor: pointer;
+}
