@@ -13,6 +13,7 @@ RUN pipenv install --system --deploy
 RUN pip install flask==2.2.2
 RUN pip install Flask-SQLAlchemy==3.0.3
 RUN pip install Flask-Login==0.6.2
+RUN pip install requests==2.26.0
 
 COPY . .
 
